@@ -88,15 +88,15 @@ const WeddingInvitation = () => {
 
   // 계좌 정보 데이터 구조화
   const groomAccounts = [
-    { id: 'groom-father', label: '부: OOO', bank: 'OO은행', account: '000-0000-0000' },
-    { id: 'groom-mother', label: '모: OOO', bank: 'OO은행', account: '000-0000-0000' },
-    { id: 'groom', label: '신랑: 방재호', bank: 'OO은행', account: '000-0000-0000' },
+    { id: 'groom-father', label: '부: 방호준', bank: '부산은행', account: '232-12-0260640' },
+    // { id: 'groom-mother', label: '모: OOO', bank: 'OO은행', account: '000-0000-0000' },
+    // { id: 'groom', label: '신랑: 방재호', bank: 'OO은행', account: '000-0000-0000' },
   ];
 
   const brideAccounts = [
-    { id: 'bride-father', label: '부: OOO', bank: 'OO은행', account: '000-0000-0000' },
-    { id: 'bride-mother', label: '모: OOO', bank: 'OO은행', account: '000-0000-0000' },
-    { id: 'bride', label: '신부: 김하정', bank: 'OO은행', account: '000-0000-0000' },
+    { id: 'bride-father', label: '부: 김광현', bank: '우리은행', account: '000-0000-0000' },
+    // { id: 'bride-mother', label: '모: OOO', bank: 'OO은행', account: '000-0000-0000' },
+    // { id: 'bride', label: '신부: 김하정', bank: 'OO은행', account: '000-0000-0000' },
   ];
 
   return (
