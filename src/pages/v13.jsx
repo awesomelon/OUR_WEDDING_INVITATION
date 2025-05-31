@@ -75,6 +75,8 @@ const WeddingInvitation = () => {
         textArea.remove();
       }
       setCopiedId(id);
+      setTimeout(() => setCopiedId(''), 200);
+
       alert(`${text} \n 복사되었습니다!`);
     } catch (err) {
       console.error('복사 실패:', err);
@@ -94,7 +96,7 @@ const WeddingInvitation = () => {
   ];
 
   const brideAccounts = [
-    { id: 'bride-father', label: '부: 김광현', bank: '우리은행', account: '000-0000-0000' },
+    { id: 'bride-father', label: '부: 김광현', bank: '우리은행', account: '145-07-425586' },
     // { id: 'bride-mother', label: '모: OOO', bank: 'OO은행', account: '000-0000-0000' },
     // { id: 'bride', label: '신부: 김하정', bank: 'OO은행', account: '000-0000-0000' },
   ];
