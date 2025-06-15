@@ -8,6 +8,8 @@ import Image5 from '../assets/images/5.jpg';
 import Image7 from '../assets/images/7.jpg';
 import Image8 from '../assets/images/8.jpg';
 
+import { KAKAO_API_KEY, KAKAO_SHARE_IMAGE } from '../constants';
+
 const WeddingInvitation = () => {
   const [showGroomAccount, setShowGroomAccount] = useState(false);
   const [showBrideAccount, setShowBrideAccount] = useState(false);
@@ -17,6 +19,38 @@ const WeddingInvitation = () => {
 
   // 스크롤 애니메이션을 위한 refs
   const sectionRefs = useRef([]);
+
+  // 카카오 SDK 로딩
+  useEffect(() => {
+    const loadKakaoSDK = () => {
+      // 이미 로드되어 있으면 리턴
+      if (window.Kakao) {
+        if (!window.Kakao.isInitialized()) {
+          window.Kakao.init(KAKAO_API_KEY);
+        }
+        return;
+      }
+
+      // 카카오 SDK 스크립트 로드
+      const script = document.createElement('script');
+      script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+      script.async = true;
+
+      script.onload = () => {
+        if (window.Kakao && !window.Kakao.isInitialized()) {
+          window.Kakao.init(KAKAO_API_KEY);
+        }
+      };
+
+      script.onerror = () => {
+        console.error('카카오 SDK 로딩 실패');
+      };
+
+      document.head.appendChild(script);
+    };
+
+    loadKakaoSDK();
+  }, []);
 
   // 스크롤 이벤트 핸들러
   useEffect(() => {
@@ -80,6 +114,42 @@ const WeddingInvitation = () => {
       console.error('복사 실패:', err);
       alert('복사 기능을 사용할 수 없습니다.');
     }
+  };
+
+  // 카카오톡 공유 함수
+  const handleKakaoShare = () => {
+    if (!window.Kakao) {
+      alert('카카오톡 공유 기능을 로딩 중입니다. 잠시 후 다시 시도해 주세요.');
+      return;
+    }
+
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(KAKAO_API_KEY);
+    }
+
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '방재호 ❤ 김하정 결혼식에 초대합니다',
+        description:
+          '6월의 어느 멋진 날, 저희 두 사람이 이제 믿음과 사랑으로 한 길을 가고자 합니다.',
+        imageUrl: KAKAO_SHARE_IMAGE,
+        link: {
+          mobileWebUrl: window.location.href,
+          webUrl: window.location.href,
+        },
+      },
+      buttons: [
+        {
+          title: '청첩장 보기',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+      ],
+      installTalk: true,
+    });
   };
 
   const addSectionRef = (el, index) => {
@@ -556,9 +626,29 @@ const WeddingInvitation = () => {
             <div className='w-16 h-px mx-auto' style={{ backgroundColor: '#c8c8c8' }}></div>
           </div>
 
-          <div className='flex gap-4 max-w-xs mx-auto'>
+          <div className='flex flex-col gap-4 max-w-xs mx-auto'>
+            {/* 카카오톡 공유 버튼 */}
             <button
-              className='flex-1 py-4 bg-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2'
+              className='py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2'
+              style={{
+                backgroundColor: '#FEE500',
+                border: 'none',
+                color: '#3C1E1E',
+                fontWeight: '600',
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = '#FDD835')}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = '#FEE500')}
+              onClick={handleKakaoShare}
+            >
+              <svg className='w-5 h-5' viewBox='0 0 24 24' fill='currentColor'>
+                <path d='M12 3C6.48 3 2 6.48 2 10.5c0 2.52 1.68 4.74 4.2 6.12L5.4 20.1c-.18.36.18.72.54.54l3.48-1.8c1.08.18 2.22.18 3.36 0l3.48 1.8c.36.18.72-.18.54-.54l-.8-3.48C20.32 15.24 22 13.02 22 10.5 22 6.48 17.52 3 12 3z' />
+              </svg>
+              카카오톡으로 공유하기
+            </button>
+
+            {/* 링크 복사 버튼 */}
+            <button
+              className='py-4 bg-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2'
               style={{
                 border: '1px solid #5b6b7c',
                 color: '#5b6b7c',
