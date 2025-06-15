@@ -5,3 +5,9 @@
   NODE_VERSION = "22"
   NPM_VERSION = "10.9.2"
 
+# SPA를 위한 리다이렉트 설정
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
