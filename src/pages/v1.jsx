@@ -3,10 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 // 이미지는 원본 코드에서 import하는 것으로 가정
 import Image1 from '../assets/images/1.jpg';
 import Image2 from '../assets/images/2.jpg';
-import Image3 from '../assets/images/3.jpg';
 import Image4 from '../assets/images/4.jpg';
 import Image5 from '../assets/images/5.jpg';
-import Image6 from '../assets/images/6.jpg';
 import Image7 from '../assets/images/7.jpg';
 import Image8 from '../assets/images/8.jpg';
 
